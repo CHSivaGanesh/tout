@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Tout</title>
+    </head>
+    <body>
+
+         
+
+        <div class="has" id="homediv">
+            <h1 class="first">Tout</h1>
+            <h1 class="sec">EveryThing At One Place</h1>
+            <img src="./assets/images/logopng.png" class="logo">
+            <button mat-raised-button color="primary" class="loginbutton" id="login1">Login<mat-icon>login</mat-icon></button>
+            <button mat-raised-button color="accent" class="signupbutton" id="signup2">SignUp<mat-icon>how_to_reg</mat-icon></button>
+            
+        </div>
+        <!--Mat card To Login-->
+        <mat-card class="example-card" id="card">
+          <p>
+            <mat-toolbar color="primary" class="tool">
+              <span>Login</span>
+              <span class="example-spacer"></span>
+              <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" id="close1">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-toolbar>
+                <div>
+                  <form action="/action_page.php">
+                    <label for="fname">User Name</label>
+                    <input type="text" id="fname" name="firstname" placeholder="Enter User Name">
+                
+                    <label for="lname">Password</label>
+                    <input type="password" id="lname" name="lastname" placeholder="Enter Password"><br><br>
+                    <button mat-flat-button color="primary" style="width: 100%;
+                    background-color: #4CAF50;">Login <mat-icon>login</mat-icon></button>                  
+                  </form>
+                </div>
+        </mat-card>          
+     </body>
+</html>
+<router-outlet></router-outlet>
