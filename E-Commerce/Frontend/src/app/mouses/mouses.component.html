@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class="row mt-5">
+
+    <div  class="col-md-4 mb-3" *ngFor="let item of mousesData">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+      <img src="../../assets/EMouses/{{item.img}}" class="card-img-top" alt="a" width="300" height="300">
+     <h4> {{item.name}}</h4>
+
+     </div>
+     <div class="flip-card-back">
+        
+          <h5 >Name of Mouse: {{item.name}}</h5>
+          <br>
+          <h5>dpi:  {{item.dpi}}</h5>
+          <br>
+           <h5> buttons: {{item.buttons}}</h5>
+           <br>
+           <h5> Scroll : {{item.scroll}}</h5>
+            
+        <div class="card-footer">
+            <p class="card-text">{{item.price}}</p>
+            <button class="btn btn-primary" (click)="addtocart(item)" >Add to Cart</button>
+        </div>
+        </div>
+      
+    </div>
+  </div>
+  <br><br><br><br><br><br><br>
+
+  </div>
+
+  </div>
+         
+         

@@ -1,0 +1,79 @@
+<div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Tout- Everything at One Place</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+
+  </div> 
+  <!-- <form class="form-inline my-2 my-lg-0">
+    <input class="form-cntrol mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form> -->
+   <br> 
+</nav>    
+ 
+
+
+<!-- -------------------------------------------------------------------------------- -->
+<body style="background-image:url('../../assets/register1.jpg') ;">       
+   
+<div class="row pt-5">
+      <div class="col-md-6 mx-auto">
+        <span class="anchor" id="formLogin"></span>
+  
+        <!-- form card login -->
+        <div class="card text-white bg-dark mb-3">
+          <img src=".../../../../assets/register.jpg" class="card-img-top" alt="Login1">
+          <form class="box" method="POST" #userForm="ngForm">
+
+          <div class="card-header">
+            <h3 class="mb-0">Register</h3>
+          </div>
+          <div class="card-body">
+          
+              <div class="form-group">
+                <label for="Name">Name</label>
+                <div class="form-group">
+                  <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" [(ngModel)]="registerUserData.Name" name="username" placeholder="Enter your name" id="username" required>
+                  <small class="text-danger" [class.d-none]="name.valid || name.untouched">name Required</small>
+              </div>
+
+                <!-- <input type="email" [(ngModel)]="registerUserData.Name" name="Name" class="form-control rounded-0" required> -->
+              </div>
+              <div class="form-group">
+                <label for="uname1">Email</label>
+                <div class="form-group" [class.has-error]="email.invalid && email.touched">
+                  <input required email type="text" class="form-control" [(ngModel)]="registerUserData.email" #email="ngModel" name="email" placeholder="Enter Email" id="email" required>
+                <span class="text-danger" *ngIf="email.errors?.required && email.touched">Email is Required </span>
+                <span class="text-danger" *ngIf="email.errors?.email && email.touched">Email is Invalid </span>
+                </div>
+                <!-- <input type="email" [(ngModel)]="registerUserData.email" name="email" class="form-control rounded-0" required> -->
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <div class="form-group">
+                  <input type="password"  [class.is-invalid]="password.invalid && password.touched" required password #password="ngModel" class="form-control" [(ngModel)]="registerUserData.password" name="password" placeholder="Enter Password" id="password" required>
+                  <div *ngIf="password.errors && (password.invalid || password.touched)">
+                      <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password Required</small>
+                  </div>
+                  </div>
+              </div>
+              <button type="button"  (click)="registerUser()" class="btn btn-primary float-right" [disabled]= "userForm.form.invalid"value="Register">Register</button>
+              
+        <br> <br>
+          </div>
+          </form>
+          <!--/card-block-->
+        </div>
+        <!-- /form card login -->
+  
+      </div>
+  
+  
+    </div>
+</body>
+</div>

@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+
+<div class="row mt-5">
+    <div  class="col-md-4 mb-3" *ngFor="let item of SportsitemsData">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+        <img src="../../assets/sdp/{{item.img}}" class="card-img-top" alt="a">
+        <br><br>
+        <h4>{{item.size}}</h4>
+              </div>
+        <div class="flip-card-back">
+          <h5>Weight : {{item.weight}}</h5>
+          <h5> Material : {{item.material}}</h5>
+           <h5> Height : {{item.height}}</h5>
+           <h5> Width : {{item.width}}</h5>
+           <h5> Depth : {{item.depth}}</h5> 
+          
+        <div class="card-footer">
+            <p class="card-text">price  : {{item.price}}</p>
+            <button class="btn btn-primary" (click)="addtocart(item)" >Add to Cart</button>
+        </div>
+        </div>
+      </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br>
+  </div>
+  </div>
+         
+         

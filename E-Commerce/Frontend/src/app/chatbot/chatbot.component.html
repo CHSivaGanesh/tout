@@ -1,0 +1,25 @@
+<div class="chatform">
+	<div class="chatlist" #chatlist>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<img  src='../../assets/bot.png 'class="avatar">
+				<div class="message">
+	                Welcome to my Chatbot
+				</div>
+				<div class="timeform">
+					<i class="fa fa-clock-o" aria-hidden="true"></i> <span class="timestamp">2nd December 2020</span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+
+	<form  class="chatcontrol" (submit)="sendmessage(message_content)">
+	  	<div class="input-group mb-3">
+		  <input type="text" class="form-control chatinput" placeholder="Enter your Message" name="content" aria-label="Enter your Message" aria-describedby="Enter your Message"  #message_content/>
+		
+		    <button class="btn btn-primary sendbtn"  type="button" (click)="sendmessage(message_content)">Send</button>
+
+		</div>
+	</form>
+</div>			

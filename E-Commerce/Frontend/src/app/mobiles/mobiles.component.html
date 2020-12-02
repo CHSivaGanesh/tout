@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+
+    <div class="row mt-5">
+    <div  class="col-md-4 mb-3" *ngFor="let item of MobilesData">
+ 
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="../../assets/Mobile/{{item.img}}" class="card-img-top" alt="a" width="300" height="300">
+        <h4>{{item.title}}</h4>
+        
+
+      </div>
+
+      <div class="flip-card-back">
+             <h4>{{item.title}}</h4>
+
+             <h5>Battery:  {{item.Battery}}</h5>
+        
+             <h5> Camera : {{item.Camera}}</h5>
+             
+             <h5> Colour : {{item.Color}}</h5>
+             
+             <h5> Display size: {{item.display}}</h5>
+             
+             <h5> Storage : {{item.storage}}</h5>
+           
+             <h5>Price : {{item.price}}</h5>
+
+              <h5> Item type : {{item.type}}</h5>     
+              
+             
+          <div class="card-footer">
+              <p class="card-text">{{item.price}}</p>
+              <button class="btn btn-primary" (click)="addtocart(item)" >Add to Cart</button>    
+      </div>
+      </div>
+    </div>
+  </div>
+  <br><br><br><br><br><br><br><br><br><br><br>
+
+  </div>
+  </div>

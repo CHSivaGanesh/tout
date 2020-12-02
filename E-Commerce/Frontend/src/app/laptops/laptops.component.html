@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class="row mt-5">
+
+    <div  class="col-md-4 mb-3" *ngFor="let item of LaptopsData">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+
+        <img src="../../assets/Laptops/{{item.img}}" class="card-img-top" alt="a">
+        <br><br><br>
+        <h4>{{item.model_name}}</h4>
+
+</div>
+<div class="flip-card-back">
+
+          <h5 class="card-title">Model name : {{item.model_name}}</h5>
+          <h5>Company:  {{item.company}}</h5>
+           <h5> Model number : {{item.model_no}}</h5>
+           <h5> Operating System : {{item.Operating_system}}</h5>
+           <h5> Ram : {{item.ram}} , Rom : {{item.rom}}</h5>
+            <h5> Price : {{item.price}}</h5>
+            <h5> Display size : {{item.display}}</h5>
+            <h5> Processor : {{item.processor}}</h5> 
+            <h5> Colour : {{item.color}},graphic card : {{item.graphic_card}}</h5>       
+           
+        <div class="card-footer">
+            <p class="card-text">{{item.price}}</p>
+            <button class="btn btn-primary" (click)="addtocart()">Add to Cart</button>
+        </div>
+        </div>
+      </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br>
+  </div>
+         </div>
+         

@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+<div class="row mt-5">
+    <div  class="col-md-4 mb-3" *ngFor="let item of HeadphonesData">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+        <img src="../../assets/EHeadphones/{{item.img}}" class="card-img-top" alt="a">
+        <h4>{{item.name}}</h4>
+        </div>
+        <div class="flip-card-back">
+
+          <h5 class="card-title">Name : {{item.name}}</h5>
+          <h5> Colour {{item.color}}</h5>
+           <h5> Microphone_type: {{item.microphone_type}}</h5>
+           <h5> Type : {{item.type}}</h5>
+           <h5> Warrenty : {{item.warrenty}}</h5>
+           <br>
+           <h5> features : {{item.features}}</h5>
+<br>
+            
+        <div class="card-footer">
+            <p class="card-text">{{item.price}}</p>
+            <button class="btn btn-primary" (click)="addtocart(item)" >Add to Cart</button>
+        </div>
+        </div>
+      </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br>
+
+  </div>
+         
+  </div>
+         
