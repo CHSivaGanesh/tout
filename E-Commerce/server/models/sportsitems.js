@@ -8,7 +8,7 @@ const MobilesSchema = new Schema({
     sold_by : String,
     size    :String,
     price    : Number,
-        weight   : Number ,
+    weight   : Number ,
     material    : String ,
     height    : String,
     width  : Number,

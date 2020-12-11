@@ -1,5 +1,5 @@
 <div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">Tout- Everything at One Place</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -9,12 +9,12 @@
     
 
   </div> 
-  <!-- <form class="form-inline my-2 my-lg-0">
+   <form class="form-inline my-2 my-lg-0">
     <input class="form-cntrol mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form> -->
+  </form> 
    <br> 
-</nav>    
+</nav>    -->
  
 
 
@@ -38,7 +38,7 @@
               <div class="form-group">
                 <label for="Name">Name</label>
                 <div class="form-group">
-                  <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" [(ngModel)]="registerUserData.Name" name="username" placeholder="Enter your name" id="username" required>
+                  <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" [(ngModel)]="registerUserData.name" name="username" placeholder="Enter your name" id="username" required>
                   <small class="text-danger" [class.d-none]="name.valid || name.untouched">name Required</small>
               </div>
 

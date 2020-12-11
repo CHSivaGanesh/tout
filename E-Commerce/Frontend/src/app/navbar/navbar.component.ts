@@ -17,15 +17,25 @@ export class NavbarComponent implements OnInit {
 
   
   constructor( private _route:Router, private authService : AuthService) { }
+  
+temp = false;
+
+
 
   open = false;
-  
+  name = localStorage.getItem('name')
 // temp = this.authService.c;
   search = '';
   ngOnInit(): void {
-    // console.log(this.temp);
+    
   }
 
+  
+  logout()
+{
+  this.authService.logout();
+  this._route.navigate(['/login'])
+}
   Search(){
     if(this.search == "mobiles" || this.search == "Mobiles" || this.search == "phone" || this.search == "Phone" || this.search == "mobile" || this.search == "mobiles" || this.search == "smart phone" || this.search == "Smart phone" || this.search == "smart phones" || this.search == "Smart phones" || this.search == " Smart Phones" || this.search == "phones" || this.search =="Phones")
     {
@@ -47,9 +57,12 @@ export class NavbarComponent implements OnInit {
       {
         this._route.navigate(['/Laptop_bags']);
       }  
-      
+      else if(this.search == "mouse" || this.search == "mouses" || this.search == "Mouse" || this.search == "Mouses" )
+         {
+           this._route.navigate(['/mouses'])
+         }
       else{
-        this._route.navigate(['/Home']);
+        this._route.navigate(['/pagenotfound']);
       }
   }
 
@@ -66,6 +79,7 @@ export class NavbarComponent implements OnInit {
     document.body.style.backgroundColor = "rgba(0,0,0,0)";
     this.open = !this.open;
 }
+
 
 
 }

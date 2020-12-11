@@ -1,12 +1,12 @@
-<app-navbar></app-navbar>
-       
+
+       <app-navbar></app-navbar>
 <div class="row mt-5">
 
     <div  class="col-md-4 mb-3" *ngFor="let item of Laptop_bagsData">
       <div class="flip-card">
         <div class="flip-card-inner">
           <div class="flip-card-front">
-        <img src="../../assets/Laptop_bags/{{item.img}}" class="card-img-top" alt="a">
+        <img src="../../assets/{{item.img}}" class="card-img-top" alt="a">
       <h4>{{item.name}}</h4>
       <br>
           </div>

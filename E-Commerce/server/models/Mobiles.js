@@ -4,17 +4,15 @@ const Schema = mongoose.Schema
 
 
 const MobilesSchema = new Schema({
-    title : String,
+    name : String,
     color :String,
     made_in:String,
     type:String,
-Battery:String,
-ram:String,
-rom:String,
-price:String,
-display:String,
-Camera:String,
-
+    Battery:String,
+    ram:String,
+    rom:String,
+    price:String,
+    display:String,
+    Camera:String,
 })
-
 module.exports = mongoose.model('mobiles',MobilesSchema,'Mobiles')

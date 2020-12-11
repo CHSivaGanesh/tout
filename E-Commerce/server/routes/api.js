@@ -13,10 +13,51 @@ const Mobile_accesories = require('../models/Mobile_accesories')
 const mouses = require('../models/mouses')
 const Telivisions = require('../models/Telivisions')
 const Sportsitems = require('../models/sportsitems')
+const nodemailer = require('nodemailer')
+const jwt = require('jsonwebtoken')
+const { getMaxListeners, findOneAndUpdate } = require('../models/user')
+
+let email = '';
+
+const db = "mongodb+srv://SivaGanesh:Thuglife@5599@cluster0.ljew3.mongodb.net/Ecommerce?retryWrites=true&w=majority"
+
+router.post('/sendmail' , (req,res) =>{
+  console.log("request came");
+    let mailer = req.body;
+    console.log(mailer);
+  sendMail(mailer,info =>{
+    console.log('The email has been sent succesfully');
+    res.send(info);
+  })
+
+
+})
 
 
 
-const db = "mongodb+srv://SivaGanesh:sivaganesh@cluster0.ljew3.mongodb.net/Ecommerce?retryWrites=true&w=majority"
+async function sendMail(mailer,callback){
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+  host: 'smtp.gmail.com',
+    // true for 465, false for other ports
+    auth: {
+      user: 'sivaganesh1528@gmail.com', // generated ethereal user
+      pass: 'Thuglife@5599', // generated ethereal password
+    },
+  });
+  let mailOptions = {
+    from : 'Tout Website CEO - Siva Ganesh',
+    to : mailer.email,
+    subject : "Welcome to our website Tout",
+     text : "none",
+    html:   "<b>Hii there!! We are so excited to have you on board🥳🥳🥳 I Siva Ganesh The CEO and Founder of Tout Ecommerce website welcomes you wholehartedly🍾🍾🍾🍾🥂 🥂 🥂 </b>",
+             
+  }
+
+  let info = await transporter.sendMail(mailOptions);
+
+  callback(info);
+}
 
 router.get('/', (req,res) => {
     res.send('From API route')
@@ -36,25 +77,42 @@ router.get('/', (req,res) => {
   
 // })
 
-router.get('/order' , (req,res)=>{
-  res.send("From order get")
+router.post('/order',(req,res)=>{
+  let OrderData = req.body 
+  let order = new Order1(OrderData)
+
+  order.save((error, obj ) => {
+    if(error){
+      console.log("error")
+    }
+    else{
+      res.status(200).send(order)
+    }
+  })
+  
 })
 
 
+
+
 router.post('/register' , (req , res)=>{
+
     let userData = req.body
+    email = userData.email;
    let user = new User(userData)
    user.save((error , registeredUser) =>{
        if(error)
            console.log("error")
        else{
-           res.status(200).send(registeredUser)
+           let payload = {subject : registeredUser._id}
+           let token = jwt.sign(payload,'secretkey')
+           res.status(200).send({token,user})
        }
    });
 
 });
 
-mongoose.connect(db,  { useNewUrlParser: true } , function(err){
+mongoose.connect(db ,{ useNewUrlParser: true } , function(err){
     if(err){
         console.error('Error! ')
     } else {
@@ -62,15 +120,74 @@ mongoose.connect(db,  { useNewUrlParser: true } , function(err){
     }
 });
 
+// function verifyToken(req,res,next){
+//   if(!req.headers.authorization){
+//     return res.status(401).send('Unauthorized request')
+//   }
+//   let token = req.headers.authorization.split(' ')[1]
+//   if (token === 'null'){
+//     return res.status(401).send('Unauthorized request')
+//   }
+
+//   let payload=jwt.verify(token,'secretkey')
+
+//   if(!payload){
+//     return res.status(401).send('Unauthorized request')
+//   }
+//   req.userId = payload.subject
+//   next()
+// }
 
 router.get('/register', (req,res) => {
     res.send('registered')
 })
 
+router.get('/home',  (req,res)=>{
+  res.send('Home')
+})
 
 
+
+// router.put('/orderheadphones/:id',(req,res)=>{​​​​
+//   User.findByIdAndUpdate(req.params.id, {​​​​
+//     $push: {​​​​ headphones : req.body.headphones}​​​​
+//   }​​​​, {​​​​new: true}​​​​)
+//   .then((resp) => {​​​​
+//     res.send(resp);
+//   }​​​​)
+//   .catch((err) => res.send(err));
+// }​​​​);
+
+// router.put('/ordermobiles/:id',(req,res)=>{​​​​
+//   User.findByIdAndUpdate(req.params.id, {​​​​
+//     $push: {​​​​ mobiles : req.body.mobiles}​​​​
+//   }​​​​, {​​​​new: true}​​​​)
+//   .then((resp) => {​​​​
+//     res.send(resp);
+//   }​​​​)
+//   .catch((err) => res.send(err));
+// }​​​​);
+
+
+router.get('/order',(req,res)=>{
+
+ Order1.find({email : email},(error , order)=>{
+   if(error){
+     console.log("error")
+   }
+   else{
+     res.send(order)
+     
+   }
+ })
+   
+})
 router.post('/login' , (req,res) => {
+
+
     let userData = req.body;
+
+    email = userData.email;
 
     User.findOne({email : userData.email} , (error, user) =>{
         if(error){
@@ -83,29 +200,44 @@ router.post('/login' , (req,res) => {
                  res.status(401).send('Invalid Password')
                  }
                  else{
-                     res.status(200).send(userData)
+                   let payload = {subject : user._id}
+                   let token = jwt.sign(payload, 'secretkey')
+                     res.status(200).send({token,user})
                  }
         }
     })
 })
 
+router.delete('/remove/:email/:name',(req,res)=>{
+  let removedata=req.body;
 
-router.get('/mobiles', (req,res)=> {
- let mobiledata = req.body;
-  //  mobilesdata =[];
- mobiles.find({}, function(err,mobiles)
- {
-   if(err)
-   {
-     console.log(err)
-   }
-   else{
-     res.send(mobiles);
-    }
- })
+  Order1.findOneAndDelete({ email : req.params.email , name : req.params.name},(error,item)=>{
+  if(error){
+    console.log("error")
+  }
+  else{
+    console.log("Removed")
+    res.send("hello")
+  } 
+});
 })
 
-router.get('/laptops', (req,res)=> {
+router.get('/mobiles',(req,res)=>{
+
+mobiles.find({} , function(err,mobiles) {
+  
+  if(err)
+  {
+    res.send("Error")
+  }
+  else{
+    res.send(mobiles)
+    
+  }
+})
+})
+
+router.get('/laptops',  (req,res)=> {
   let laptopdata = req.body;
     // laptopdata =[];
   laptop.find({}, function(err,laptops)
@@ -118,10 +250,7 @@ router.get('/laptops', (req,res)=> {
       res.send(laptops);
      }
   })
- 
- 
  })
-
 
  router.get('/headphones', (req,res)=> {
   let headphonesdata = req.body;
@@ -208,7 +337,7 @@ router.get('/laptops', (req,res)=> {
   }) 
  })
 
- router.get('/Televisions', (req,res)=> {
+ router.get('/Televisions',(req,res)=> {
   
   let Telivisionsdata = req.body;
 
@@ -240,5 +369,39 @@ router.get('/laptops', (req,res)=> {
   }) 
  })
 
+ router.put('/quantityset',(req,res) =>{
+   let quantitysetdata = req.body ; 
+   Order1.findOneAndUpdate({email : email , name : quantitysetdata.name}, {
+     $set : {quantity : quantitysetdata.quantity}
+   }, {new : true})
+   .then((resp) => {
+     res.send(resp);
+   })
+
+   .catch((err) =>  res.send(err));
+
+ });
+
+//  router.put('/quantityset', (req,res) => {​​
+//   let quantitysetdata = req.body;
+
+//   Order1.findOneAndUpdate({​​email: email , name: quantitysetdata.name}​​,{​​
+
+//     $set: {​​quantity : quantitysetdata.quantity}​​
+
+//   }​​, {​​new: true}​​)
+
+//   .then((resp) => {​​
+
+//     res.send(resp);
+
+//   }​​)
+
+//   .catch((err) => res.send(err));
+
+// }​​);
+  
+ 
 
  module.exports =router 
+ 

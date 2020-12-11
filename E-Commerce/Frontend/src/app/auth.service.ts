@@ -5,9 +5,9 @@ import {HttpClient, HttpClientModule } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-   email = '';
+   email = ''
    Orders : any = [];
-  c=0;
+  
   
   private _registerUrl = 'http://localhost:3000/api/register';
   private _loginUrl = 'http://localhost:3000/api/login';
@@ -21,9 +21,36 @@ export class AuthService {
   private _TeddybearsUrl = 'http://localhost:3000/api/Teddybears';
   private _TelevisionsUrl = 'http://localhost:3000/api/Televisions';
   private _Sportsitems = 'http://localhost:3000/api/sportsitems';
+  private _sendmail = 'http://localhost:3000/api/sendmail';
+  private _removeitem ='http://localhost:3000/api/remove';
+  private _quantityset = 'http://localhost:3000/api/quantityset'
 
-  constructor(private http: HttpClient) { }
-  
+
+  constructor(private http: HttpClient) { 
+    localStorage.setItem('quantity',"1")
+  }
+ 
+  quantity=localStorage.getItem('quantity')
+
+  removeitem(name){
+    console.log(name)
+    return this.http.delete<any>(`http://localhost:3000/api/remove/${localStorage.getItem('email')}/${name}`)
+  }
+
+loggedIn(){
+    
+  return !!(localStorage.getItem('token'))
+}
+
+getToken()
+{
+  return localStorage.getItem('token');
+}
+
+logout()
+{
+  localStorage.removeItem('token')
+}
 
  getLaptops(){
   return this.http.get<any>(this._laptopUrl)
@@ -53,9 +80,12 @@ getSportsitems(){
   return this.http.get<any>(this._Sportsitems);
 }
 
-
+sendmail(user){
+  return this.http.post<any>(this._sendmail , user);
+}
 
 registerUser(user) {
+
  return this.http.post<any>(this._registerUrl , user)
 }
 
@@ -64,12 +94,25 @@ loginUser(user){
 }
 
 addtocart(item){
-   this.Orders.push(item);
-   this.c = this.Orders.length;
-   return this.http.post<any>(this._orderUrl,item)
+  const obj  = {​​
+    email : localStorage.getItem('email'),
+    name : item.name,
+    price: item.price,
+    type : item.type,
+    img : item.img,
+    quantity : this.quantity,
+  }
+   return this.http.post<any>(this._orderUrl,obj)
 }
 
- AddOrder(orders){
-  return this.http.post<any>(this._orderUrl , orders)
+ 
+ getorders(){
+  return this.http.get<any>(this._orderUrl);
  }
+
+ incrementquantity(quantity)
+
+  {​​
+    return this.http.put(this._quantityset, quantity);
+  }​​
 }

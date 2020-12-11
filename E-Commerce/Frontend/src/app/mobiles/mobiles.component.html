@@ -1,19 +1,19 @@
-<app-navbar></app-navbar>
 
+<app-navbar></app-navbar>
     <div class="row mt-5">
     <div  class="col-md-4 mb-3" *ngFor="let item of MobilesData">
  
   <div class="flip-card">
     <div class="flip-card-inner">
       <div class="flip-card-front">
-        <img src="../../assets/Mobile/{{item.img}}" class="card-img-top" alt="a" width="300" height="300">
-        <h4>{{item.title}}</h4>
+        <img src="../../assets/{{item.img}}" class="card-img-top" alt="a" width="300" height="300">
+        <h4>{{item.name}}</h4>
         
 
       </div>
 
       <div class="flip-card-back">
-             <h4>{{item.title}}</h4>
+             <h4>{{item.name}}</h4>
 
              <h5>Battery:  {{item.Battery}}</h5>
         

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 
 const HeadphonesSchema = new Schema({
-    name : String,
+name : String,
 color : String,
 microphone_type : String ,
 wireless : String ,

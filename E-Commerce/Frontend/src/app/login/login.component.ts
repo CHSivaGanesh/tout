@@ -19,20 +19,25 @@ export class LoginComponent implements OnInit {
   durationInSeconds = 5;
 
   loginUserData ={
+    name : '',
     email : '',
     password : ''
   }
   constructor(private _auth:AuthService,private _route : Router,private _snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+
+  }
+
 
 loginUser(){
-  this._auth.email=this.loginUserData.email;
+  localStorage.setItem('email',this.loginUserData.email);
   this._auth.loginUser(this.loginUserData)
    .subscribe(
     res => {     
-      this.openSnackBar()
-      // alert("Login Succesful")     
+      localStorage.setItem('token', res.token)
+      this.openSnackBar()   
         this._route.navigate(['/Home']) 
         console.log(res)   
         

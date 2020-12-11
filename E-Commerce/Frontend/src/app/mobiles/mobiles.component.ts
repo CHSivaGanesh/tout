@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import {Router} from '@angular/router';
+// import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-mobiles',
@@ -8,12 +11,15 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./mobiles.component.css']
 })
 export class MobilesComponent implements OnInit {
+  
 
-
-  constructor(private authservice:AuthService) { }
+  constructor(private authservice:AuthService, private router : Router) { }
      MobilesData: any = [];
      Orders : any = [];
   ngOnInit(): void {
+    
+
+
     this.authservice.getMobiles()
     .subscribe(
       res =>{ this.MobilesData = res,
@@ -27,13 +33,22 @@ export class MobilesComponent implements OnInit {
         }
       }
     )
-
   }
+  
+  
   addtocart(item){
+    console.log(item);
     this.authservice.addtocart(item)
     .subscribe(
       res =>console.log(res),
-      err => console.log(err)
+      err => {
+        if(err instanceof HttpErrorResponse){
+          if(err.status === 401){
+            this.router.navigate(['/login'])
+            
+          }
+        }
+      }
     );
   }
 

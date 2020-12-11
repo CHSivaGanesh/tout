@@ -5,8 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import {HttpClientModule } from '@angular/common/http';
+import {HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
+import {TokenInterceptorService} from '../app/token-interceptor.service';
 import { AuthService } from '../app/auth.service';
+import {AuthGuard} from '../app/auth.guard';
 import { HomeComponent } from './home/home.component'
 import { HomeService } from './home.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +33,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { LoginunsuccesfulComponent } from './loginunsuccesful/loginunsuccesful.component';
 import {MatTableModule} from '@angular/material/table';
 import { SportsitemsComponent } from './sportsitems/sportsitems.component';
+import { FooterComponent } from './footer/footer.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import {MatDividerModule} from '@angular/material/divider';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+
 
 
 
@@ -54,6 +62,10 @@ import { SportsitemsComponent } from './sportsitems/sportsitems.component';
     ChatbotComponent,
     LoginunsuccesfulComponent,
     SportsitemsComponent,
+    FooterComponent,
+    WelcomeComponent,
+    CheckoutComponent,
+    PagenotfoundComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -68,9 +80,15 @@ import { SportsitemsComponent } from './sportsitems/sportsitems.component';
     MatGridListModule,
     MatFormFieldModule,
     MatSnackBarModule,  
-    MatTableModule,    
+    MatTableModule,  
+    MatDividerModule  
   ],
-  providers: [AuthService,HomeService,ProductService],
+  providers: [AuthService,HomeService,ProductService,AuthGuard ,
+     {
+       provide : HTTP_INTERCEPTORS,
+       useClass : TokenInterceptorService,
+       multi : true
+     }],
   bootstrap: [AppComponent]
 
 

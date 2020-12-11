@@ -3,6 +3,7 @@ import {AuthService} from '../auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
+
 @Component({
   selector: 'app-laptops',
   templateUrl: './laptops.component.html',
@@ -10,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LaptopsComponent implements OnInit {
 
-  constructor(private authservice:AuthService) { }
+  constructor(private authservice:AuthService ) { }
   LaptopsData: any = [];
 
 
@@ -31,6 +32,7 @@ export class LaptopsComponent implements OnInit {
 
   }
   addtocart(item){
+    // localStorage.setItem('order', item)
     this.authservice.addtocart(item)
     .subscribe(
       res =>console.log(res),
