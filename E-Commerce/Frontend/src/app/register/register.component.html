@@ -1,4 +1,4 @@
-<div>
+
 <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">Tout- Everything at One Place</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,7 +19,8 @@
 
 
 <!-- -------------------------------------------------------------------------------- -->
-<body style="background-image:url('../../assets/register1.jpg') ;">       
+<div *ngIf="hide1">
+<body style="background-image:url('../../assets/Login1.jpg') ;">       
    
 <div class="row pt-5">
       <div class="col-md-6 mx-auto">
@@ -38,8 +39,8 @@
               <div class="form-group">
                 <label for="Name">Name</label>
                 <div class="form-group">
-                  <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" [(ngModel)]="registerUserData.name" name="username" placeholder="Enter your name" id="username" required>
-                  <small class="text-danger" [class.d-none]="name.valid || name.untouched">name Required</small>
+                  <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" [(ngModel)]="registerUserData.name" name="username" placeholder="Enter your name" id="username">
+                  <span class="text-danger" [class.d-none]="name.valid || name.untouched">name Required</span>
               </div>
 
                 <!-- <input type="email" [(ngModel)]="registerUserData.Name" name="Name" class="form-control rounded-0" required> -->
@@ -58,11 +59,11 @@
                 <div class="form-group">
                   <input type="password"  [class.is-invalid]="password.invalid && password.touched" required password #password="ngModel" class="form-control" [(ngModel)]="registerUserData.password" name="password" placeholder="Enter Password" id="password" required>
                   <div *ngIf="password.errors && (password.invalid || password.touched)">
-                      <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password Required</small>
+                      <span class="text-danger" [class.d-none]="password.valid || password.untouched">Password Required</span>
                   </div>
                   </div>
               </div>
-              <button type="button"  (click)="registerUser()" class="btn btn-primary float-right" [disabled]= "userForm.form.invalid"value="Register">Register</button>
+              <button type="button"  (click)="registerUser()" class="btn btn-primary float-right" [disabled]= "userForm.form.invalid" value="Register">Register</button>
               
         <br> <br>
           </div>
@@ -76,4 +77,9 @@
   
     </div>
 </body>
+</div>
+
+<div *ngIf="hide2">
+  <h1>Registered Succesfully</h1>
+  <img src="https://img.icons8.com/cotton/64/000000/successfully-completed-task--v1.png"/>
 </div>

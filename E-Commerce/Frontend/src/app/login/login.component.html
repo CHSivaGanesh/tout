@@ -59,10 +59,10 @@
               
                 
                 <a tabindex="0"  class="btn btn-primary float-left" role="button" data-toggle="popover" data-trigger="focus" title="New User Sign up" routerLink='/register'>Register</a>
-                <a tabindex="0"  class="btn btn-link float-middle" role="button" data-toggle="popover" data-trigger="focus" title="Forgot your password?">Forgot your password?</a>
+                <!-- <a tabindex="0"  class="btn btn-link float-middle" role="button" data-toggle="popover" data-trigger="focus" title="Forgot your password?">Forgot your password?</a> -->
                 <!-- <button type="button" class="btn btn-link float-middle">Forgot password?</button> -->
                 <!-- <button type="button"  (click)="loginUser()" class="btn btn-success float-right">Login</button> -->
-                <a tabindex="0" class="btn  btn-success float-right" (click)="loginUser()" role="button" data-toggle="popover" data-trigger="focus" title="Login to continue" data-placement="top" value="top">Login</a>
+                <button tabindex="0" [disabled]="loginForm.form.invalid"    class="btn btn-success float-right" (click)="loginUser()" role="button"  data-toggle="popover" data-trigger="focus" title="Login to continue" data-placement="top" value="top">Login</button>
 
               </form>
             </div>

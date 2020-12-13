@@ -6,6 +6,7 @@ const product = require('../models/product')
 const mobiles = require('../models/Mobiles')
 const laptop = require('../models/laptop')
 const Order1 = require('../models/order')
+const confirmedOrders = require('../models/userconfirmedorders')
 const Headphones = require('../models/Headphones')
 const Laptop_bags = require('../models/Laptop_bags')
 const Teddybears = require('../models/Teddybears')
@@ -16,6 +17,7 @@ const Sportsitems = require('../models/sportsitems')
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
 const { getMaxListeners, findOneAndUpdate } = require('../models/user')
+const userconfirmedorders = require('../models/userconfirmedorders')
 
 let email = '';
 
@@ -29,11 +31,7 @@ router.post('/sendmail' , (req,res) =>{
     console.log('The email has been sent succesfully');
     res.send(info);
   })
-
-
 })
-
-
 
 async function sendMail(mailer,callback){
   let transporter = nodemailer.createTransport({
@@ -42,15 +40,15 @@ async function sendMail(mailer,callback){
     // true for 465, false for other ports
     auth: {
       user: 'sivaganesh1528@gmail.com', // generated ethereal user
-      pass: 'Thuglife@5599', // generated ethereal password
+      pass: 'Superstar@5599', // generated ethereal password
     },
   });
   let mailOptions = {
     from : 'Tout Website CEO - Siva Ganesh',
     to : mailer.email,
-    subject : "Welcome to our website Tout",
+    subject : "Welcome to our website",
      text : "none",
-    html:   "<b>Hii there!! We are so excited to have you on board🥳🥳🥳 I Siva Ganesh The CEO and Founder of Tout Ecommerce website welcomes you wholehartedly🍾🍾🍾🍾🥂 🥂 🥂 </b>",
+    html:   "<b>Hii there!! We are so excited to have you on board🥳🥳🥳  Oue team welcomes you wholeheartedly</b>",
              
   }
 
@@ -58,6 +56,59 @@ async function sendMail(mailer,callback){
 
   callback(info);
 }
+
+
+router.post('/sendorderssummary' , (req,res) =>{
+  console.log("request came");
+    let mailer = req.body;
+    console.log(mailer);
+  sendOrdersSummary(mailer,info =>{
+    console.log('The email has been sent succesfully');
+    res.send(info);
+  })
+})
+
+async function sendOrdersSummary(mailer,callback){
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+  host: 'smtp.gmail.com',
+    // true for 465, false for other ports
+    auth: {
+      user: 'sivaganesh1528@gmail.com', // generated ethereal user
+      pass: 'Superstar@5599', // generated ethereal password
+    },
+  });
+  let mailOptions = {
+    from : 'Tout Website CEO - Siva Ganesh',
+    to : mailer.email,
+    subject : "Order placed Succesfully",
+     
+     html :  "<b>  Thanks for shopping with us!!!! </b>"  ,
+                 
+  }
+
+  let info = await transporter.sendMail(mailOptions);
+
+  callback(info);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.get('/', (req,res) => {
     res.send('From API route')
@@ -89,8 +140,34 @@ router.post('/order',(req,res)=>{
       res.status(200).send(order)
     }
   })
-  
 })
+router.post('/userconfirmedorders' , (req,res) =>{
+
+  let confirmedorders = req.body ;
+  let ConfirmedOrders = new confirmedOrders(confirmedorders)
+  ConfirmedOrders.save((error , confirmedorderS)=>{
+    if(error) {
+      console.log("error")
+    }
+    else{
+      res.status(200).send(ConfirmedOrders)
+  }
+})
+})
+
+router.get('/userconfirmedorders' , (req,res) => {
+
+
+  userconfirmedorders.find({email : email},(error , order)=>{
+    if(error){
+      console.log("error")
+    }
+    else{
+      res.send(order)
+}
+})
+})
+
 
 
 
@@ -183,12 +260,8 @@ router.get('/order',(req,res)=>{
    
 })
 router.post('/login' , (req,res) => {
-
-
     let userData = req.body;
-
     email = userData.email;
-
     User.findOne({email : userData.email} , (error, user) =>{
         if(error){
             console.log(error)
@@ -210,7 +283,6 @@ router.post('/login' , (req,res) => {
 
 router.delete('/remove/:email/:name',(req,res)=>{
   let removedata=req.body;
-
   Order1.findOneAndDelete({ email : req.params.email , name : req.params.name},(error,item)=>{
   if(error){
     console.log("error")

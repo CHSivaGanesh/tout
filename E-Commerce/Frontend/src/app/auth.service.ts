@@ -24,13 +24,32 @@ export class AuthService {
   private _sendmail = 'http://localhost:3000/api/sendmail';
   private _removeitem ='http://localhost:3000/api/remove';
   private _quantityset = 'http://localhost:3000/api/quantityset'
-
+  private _userconfirmedorders = 'http://localhost:3000/api/userconfirmedorders'
+  private _sendOrdersmail = 'http://localhost:3000/api/sendorderssummary'
 
   constructor(private http: HttpClient) { 
     localStorage.setItem('quantity',"1")
   }
  
   quantity=localStorage.getItem('quantity')
+
+cashondelivery(orders){
+  const obj = {
+    email : localStorage.getItem('uemail'),
+    fullname : localStorage.getItem('Fullname'),
+    address : localStorage.getItem('address'),
+    city : localStorage.getItem('city'),
+    State: localStorage.getItem('state'),
+    zipcode: localStorage.getItem('zip'),
+    totalbill : localStorage.getItem('totalprice'),
+    Orders : [] = orders 
+  }
+  return this.http.post<any>(this._userconfirmedorders,obj)
+}
+
+getuserconfirmedorders(){
+  return this.http.get<any>(this._userconfirmedorders);
+}
 
   removeitem(name){
     console.log(name)
@@ -50,6 +69,7 @@ getToken()
 logout()
 {
   localStorage.removeItem('token')
+  localStorage.removeItem('email')
 }
 
  getLaptops(){
@@ -82,6 +102,11 @@ getSportsitems(){
 
 sendmail(user){
   return this.http.post<any>(this._sendmail , user);
+}
+
+sendordermail(Orders)
+{
+  return this.http.post<any>(this._sendOrdersmail,Orders)
 }
 
 registerUser(user) {

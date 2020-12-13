@@ -15,4 +15,5 @@ const MobilesSchema = new Schema({
     display:String,
     Camera:String,
 })
+
 module.exports = mongoose.model('mobiles',MobilesSchema,'Mobiles')

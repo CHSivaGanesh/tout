@@ -20,13 +20,14 @@ import { LoginunsuccesfulComponent } from './loginunsuccesful/loginunsuccesful.c
 import { WelcomeComponent } from './welcome/welcome.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { MyordersComponent } from './myorders/myorders.component';
 
 const routes: Routes = [ {path : '' , component : LoginComponent},
 {path: 'login' , component:LoginComponent},
 {path: 'register' , component:RegisterComponent },
 {path: 'Home' , component:HomeComponent, canActivate : [AuthGuard] },
 {path:'cart' , component:CartComponent, canActivate : [AuthGuard]},
-{path:'mobiles',component:MobilesComponent},
+{path:'mobiles',component:MobilesComponent,canActivate : [AuthGuard]},
 {path :'laptops' ,  component: LaptopsComponent, canActivate : [AuthGuard]},
 {path :'mouses' ,  component: MousesComponent, canActivate : [AuthGuard]},
 {path :'Headphones' ,  component: HeadphonesComponent, canActivate : [AuthGuard]},
@@ -38,7 +39,8 @@ const routes: Routes = [ {path : '' , component : LoginComponent},
 {path : 'sportsitems' , component:SportsitemsComponent, canActivate : [AuthGuard]},
 {path : 'loginunsuccesful',component:LoginunsuccesfulComponent},
 {path:'welcome' , component:WelcomeComponent},
-{path:'checkout',component:CheckoutComponent},
+{path:'checkout',component:CheckoutComponent,canActivate : [AuthGuard]},
+{path : 'myorders' , component: MyordersComponent,canActivate:[AuthGuard]},
 {path:'pagenotfound' , component: PagenotfoundComponent }
 ];
 

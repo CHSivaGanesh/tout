@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare const chatResponse:any;
 
 @Component({
   selector: 'app-chatbot',
@@ -14,6 +15,10 @@ export class ChatbotComponent implements OnInit {
   sendmessage(message_content){
     console.log(message_content.value);
 
+  }
+
+  onClick(){
+    chatResponse();
   }
 
 }

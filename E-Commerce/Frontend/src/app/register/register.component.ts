@@ -11,6 +11,19 @@ export class RegisterComponent implements OnInit {
 
   constructor(private _auth: AuthService , private _route:Router) { }
 
+  hide1=true;
+  hide2=false;
+  
+move()
+{
+  this.hide1=false;
+  this.hide2=true;
+  setTimeout(() => {
+    this.hide1=true;
+    this.hide2=false;
+  },50000);
+
+}
   registerUserData ={
     name : '',
     email: '',
@@ -22,6 +35,7 @@ export class RegisterComponent implements OnInit {
 
 
 registerUser(){
+
   localStorage.setItem('name',this.registerUserData.name)
   localStorage.setItem('email',this.registerUserData.email);
   this.sendmail()
@@ -30,8 +44,8 @@ registerUser(){
      res => {
               console.log(res)
               localStorage.setItem('token', res.token)
-             this._route.navigate(['/login'])
-
+              this.move();
+             this._route.navigate(['/Home'])
      },
      err => console.log(err)
 

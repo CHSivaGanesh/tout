@@ -40,7 +40,6 @@ loginUser(){
       this.openSnackBar()   
         this._route.navigate(['/Home']) 
         console.log(res)   
-        
   },
      err => {
        this.closeSnackBar() 

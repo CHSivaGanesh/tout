@@ -1,86 +1,143 @@
-<div class="row">
+<app-navbar></app-navbar>
+<div class="col-25" *ngIf="hide1">
+  <br><br>
+  <div class="container">
+    <h4>Cart
+      <span class="price" style="color:black">
+        <i class="fa fa-shopping-cart"></i>
+         
+        <b></b>
+      </span>
+    </h4>
+    <p *ngFor="let order of Orders">
+      <a>{{order.name}}</a> <span class="price">{{order.quantity}} X {{order.price}} </span></p>
+    
+    <hr>
+    <p>Total <span class="price" style="color:black"><b> Rs : {{totalbill}} /-</b></span></p>
+  </div>
+</div>
+
+
+<div class="row" *ngIf="hide1">
     <div class="col-50">
       <br><br>
       <div class="container">
-        <form action="/action_page.php">
-  
           <div class="row">
             <div class="col-50">
               <h3>Billing Address</h3>
+              <form #cashondelivery="ngForm">
+
               <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-              <input type="text" id="fname" name="firstname" placeholder="John M. Doe" required>
+              <div class="form-group">
+                <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" [(ngModel)]="checkoutUserData.name" name="username" placeholder="Enter your name" id="username">
+                <span class="text-danger" [class.d-none]="name.valid || name.untouched">Name is Required</span>
+              </div>
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
-              <input type="text" id="email" name="email" placeholder="john@example.com">
+              <div class="form-group" [class.has-error]="email.invalid && email.touched">
+                <input required email type="text" class="form-control" [(ngModel)]="checkoutUserData.email" #email="ngModel" name="email" placeholder="ngModel" id="email" required>
+                <span class="text-danger" *ngIf="email.errors?.required && email.touched">Email is Required </span>
+                <span class="text-danger" *ngIf="email.errors?.email && email.touched">Email is Invalid </span>
+              </div>
               <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-              <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+              <div class="form-group">
+                <input type="text" required #address="ngModel" [class.is-invalid]="address.invalid && address.touched" class="form-control" [(ngModel)]="checkoutUserData.address" name="address" placeholder="Ex: 512 WallStreet" id="username">
+                <span class="text-danger" [class.d-none]="address.valid || address.untouched">Address is Required</span>
+
+              </div>
               <label for="city"><i class="fa fa-institution"></i> City</label>
-              <input type="text" id="city" name="city" placeholder="New York">
+              <div class="form-group">
+                <input type="text" required #city="ngModel" [class.is-invalid]="city.invalid && city.touched" class="form-control" [(ngModel)]="checkoutUserData.city" name="city" placeholder="Ex: Vijayawada">
+                <span class="text-danger" [class.d-none]="city.valid || city.untouched">Address is Required</span>
+
+              </div>
   
               <div class="row">
                 <div class="col-50">
                   <label for="state">State</label>
-                  <input type="text" id="state" name="state" placeholder="NY">
+                  <div class="form-group">
+                    <input type="text" required #state="ngModel" [class.is-invalid]="state.invalid && state.touched" class="form-control" [(ngModel)]="checkoutUserData.state" name="state" placeholder="Ex: Andhra Pradesh" >
+                    <span class="text-danger" [class.d-none]="state.valid || state.untouched">State is Required</span>
+                  </div>
+
                 </div>
                 <div class="col-50">
                   <label for="zip">Zip</label>
-                  <input type="text" id="zip" name="zip" placeholder="10001">
+                  <div class="form-group">
+                    <input type="text" required #zip="ngModel" [class.is-invalid]="zip.invalid && zip.touched" class="form-control" [(ngModel)]="checkoutUserData.zip" name="zip" placeholder="Ex: 520010">
+                    <span class="text-danger" [class.d-none]="zip.valid || zip.untouched">ZIP is Required</span>
+                  </div>
                 </div>
+              
               </div>
+              <button type="button" class="btn btn-success" (click)="checkout()" [disabled]="cashondelivery.form.invalid ">Cash On Delivery</button>
+</form>
             </div>
-  
+  <form  #checkoutform="ngForm">
             <div class="col-50">
-              <h3>Payment</h3>
+              <h3> Card Payment</h3>
               <label for="fname">Accepted Cards</label>
               <div class="icon-container">
-                <i class="fa fa-cc-visa" style="color:navy;"></i>
-                <i class="fa fa-cc-amex" style="color:blue;"></i>
-                <i class="fa fa-cc-mastercard" style="color:red;"></i>
-                <i class="fa fa-cc-discover" style="color:orange;"></i>
+                <i class="fa fa-cc-visa" style="color:navy;"> | </i>
+                <i class="fa fa-cc-amex" style="color:blue;"> | </i>
+                <i class="fa fa-cc-mastercard" style="color:red;"> |</i>
+                <i class="fa fa-cc-discover" style="color:orange;"> |</i>
               </div>
               <label for="cname">Name on Card</label>
-              <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+              <div class="form-group">
+                <input type="text" required #nameoncard="ngModel" [class.is-invalid]="nameoncard.invalid && nameoncard.touched" class="form-control" [(ngModel)]="checkoutUserData.nameoncard" name="username" placeholder="Enter name on card" id="username">
+                <span class="text-danger" [class.d-none]="nameoncard.valid || nameoncard.untouched">Name  on card is Required</span>
+              </div>
+
               <label for="ccnum">Credit card number</label>
               <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
               <label for="expmonth">Exp Month</label>
-              <input type="text" id="expmonth" name="expmonth" placeholder="September">
-  
+
+              <div class="form-group">
+                <input type="text" required #expmonth="ngModel" [class.is-invalid]="expmonth.invalid && expmonth.touched" class="form-control" [(ngModel)]="checkoutUserData.expmonth" name="username" placeholder="Ex:September" id="username">
+                <span class="text-danger" [class.d-none]="expmonth.valid || expmonth.untouched">Expiry Month is Required</span>
+              </div>  
+
               <div class="row">
                 <div class="col-50">
                   <label for="expyear">Exp Year</label>
-                  <input type="text" id="expyear" name="expyear" placeholder="2018">
-                </div>
+                  <div class="form-group">
+                    <input type="text" required #expyear="ngModel" [class.is-invalid]="expyear.invalid && expyear.touched" class="form-control" [(ngModel)]="checkoutUserData.expyear" name="username" placeholder="2020" id="username">
+                    <span class="text-danger" [class.d-none]="expyear.valid || expyear.untouched">Expiry Year is Required</span>
+                  </div>              
+                  </div>
                 <div class="col-50">
                   <label for="cvv">CVV</label>
-                  <input type="text" id="cvv" name="cvv" placeholder="352">
-                </div>
+                  <div class="form-group">
+                    <input type="text" required #cvv="ngModel" [class.is-invalid]="cvv.invalid && cvv.touched" class="form-control" [(ngModel)]="checkoutUserData.cvv" name="username" placeholder="323" id="username">
+                    <span class="text-danger" [class.d-none]="cvv.valid || cvv.untouched">CVV is Required</span>
+                  </div>    
+                            </div>
               </div>
+              <input type="submit" value="Continue to checkout" [disabled]= "checkoutform.form.invalid"class="btn">
+
             </div>
-  
+          </form>
+
           </div>
           <label>
             <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
           </label>
-          <input type="submit" value="Continue to checkout" class="btn">
-        </form>
+
+         
+
+        </div>
+
       </div>
-    </div>
-  
-    <div class="col-25">
-      <br><br><br><br><br> 
-      <div class="container">
-        <h4>Cart
-          <span class="price" style="color:black">
-            <i class="fa fa-shopping-cart"></i>
-             
-            <b></b>
-          </span>
-        </h4>
-        <p *ngFor="let order of Orders">
-          <a>{{order.name}}</a> <span class="price">{{order.quantity}} X {{order.price}} </span></p>
-        
-        <hr>
-        <p>Total <span class="price" style="color:black"><b> Rs : {{totalbill}} /-</b></span></p>
-      </div>
-    </div>
-  </div>
+    </div> 
+    
+    
+
+   <div *ngIf="hide2" class="hide">
+     
+     <h1> Ordered Succesfully </h1>
+     <img  src="https://img.icons8.com/flat_round/64/000000/checkmark.png"/>
+</div>
+   
+
+
   <app-footer></app-footer>

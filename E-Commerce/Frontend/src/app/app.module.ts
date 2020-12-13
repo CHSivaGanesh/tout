@@ -38,6 +38,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {MatDividerModule} from '@angular/material/divider';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { MyordersComponent } from './myorders/myorders.component';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 
@@ -66,6 +68,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     WelcomeComponent,
     CheckoutComponent,
     PagenotfoundComponent,
+    MyordersComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -81,7 +84,8 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     MatFormFieldModule,
     MatSnackBarModule,  
     MatTableModule,  
-    MatDividerModule  
+    MatDividerModule ,
+    MatStepperModule 
   ],
   providers: [AuthService,HomeService,ProductService,AuthGuard ,
      {

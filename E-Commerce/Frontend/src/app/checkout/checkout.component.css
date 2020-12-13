@@ -5,7 +5,16 @@
     flex-wrap: wrap;
     margin: 0 -16px;
   }
-  
+
+
+ h1{
+   text-align: center;
+ }
+
+ img{
+   margin-left: 600px;
+ }
+
   .col-25 {
     -ms-flex: 25%; /* IE10 */
     flex: 25%;
